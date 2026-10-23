@@ -54,16 +54,32 @@ function displayAssignedCrew() {
   }
 }
 function displaySupplyBars(results: ShiftResults) {
+  const rows: SupplyDisplayRow[] = [
+    {
+      label: `Production: ${results.production}`,
+      value: results.production,
+      color: "#27766b",
+    },
+    {
+      label: `Consumption: ${results.consumption}`,
+      value: results.consumption,
+      color: "#a44d23",
+    },
+  ];
   context.fillStyle = "#233e43";
   context.font = "14px system-ui";
-  context.fillText(`Producers: ${assigned} / 6`, 18, 76);
-  context.fillText(`Production: ${results.production}`, 18, 102);
-  context.fillStyle = "#27766b";
-  context.fillRect(18, 110, results.production * 14, 20);
-  context.fillStyle = "#233e43";
-  context.fillText(`Consumption: ${results.consumption}`, 18, 154);
-  context.fillStyle = "#a44d23";
-  context.fillRect(18, 162, results.consumption * 14, 20);
+  context.fillText(`Producers: ${results.assignedCrew} / 6`, 18, 76);
+
+  for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+    const row = rows[rowIndex];
+    const labelY = 102 + rowIndex * 52;
+    const barY = 110 + rowIndex * 52;
+
+    context.fillStyle = "#233e43";
+    context.fillText(row.label, 18, labelY);
+    context.fillStyle = row.color;
+    context.fillRect(18, barY, row.value * 14, 20);
+  }
 }
 function updateReadout(results: ShiftResults) {
   readout.textContent =
