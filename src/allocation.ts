@@ -12,6 +12,11 @@ type ShiftResults = {
   consumption: number;
   balance: number;
 };
+type SupplyDisplayRow = {
+  label: string;
+  value: number;
+  color: string;
+};
 
 let assigned = 2;
 const consumption = 6;
