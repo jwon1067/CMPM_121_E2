@@ -6,11 +6,11 @@ const readout = document.querySelector<HTMLParagraphElement>(
   "#allocation-readout",
 )!;
 let assigned = 2;
+const consumption = 6;
 
 function renderAllocation() {
-  const production = assigned * 3;
-  const consumption = 6;
-  const balance = production - consumption;
+  const production = calculateProduction();
+  const balance = calculateBalance();
   context.clearRect(0, 0, canvas.width, canvas.height);
   for (let crewIndex = 0; crewIndex < 6; crewIndex++) {
     context.fillStyle = crewIndex < assigned ? "#27766b" : "#c9d2c9";
@@ -33,6 +33,13 @@ function renderAllocation() {
     `Assigned: ${assigned}/6 · Production: ${production} · Consumption: ${consumption} · Balance: ${
       balance > 0 ? "+" : ""
     }${balance}`;
+}
+
+function calculateProduction() {
+  return assigned * 3;
+}
+function calculateBalance() {
+  return calculateProduction() - consumption;
 }
 
 document.querySelector<HTMLButtonElement>("#allocation-less")!.onclick = () => {
